@@ -2,6 +2,22 @@
 
 All notable changes to `barstool` will be documented in this file.
 
+## v1.1.1 - 2026-04-27
+
+### What's Changed
+
+* Fix | Remove old unused status property by @lloricode in https://github.com/saloonphp/barstool/pull/2
+* Fix migration using wrong config key for database connection by @craigpotter in https://github.com/saloonphp/barstool/pull/3
+* Bump dependabot/fetch-metadata from 2.5.0 to 3.1.0 by @dependabot[bot] in https://github.com/saloonphp/barstool/pull/5
+
+### New Contributors
+
+* @lloricode made their first contribution in https://github.com/saloonphp/barstool/pull/2
+* @craigpotter made their first contribution in https://github.com/saloonphp/barstool/pull/3
+* @dependabot[bot] made their first contribution in https://github.com/saloonphp/barstool/pull/5
+
+**Full Changelog**: https://github.com/saloonphp/barstool/compare/v1.1.0...v1.1.1
+
 ## v1.1.0 - 2026-03-31
 
 ### What's Changed
