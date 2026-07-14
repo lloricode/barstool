@@ -2,6 +2,16 @@
 
 All notable changes to `barstool` will be documented in this file.
 
+## v1.1.2 - 2026-07-14
+
+### What's Changed
+
+* Fix streamed response bodies being consumed when recording by @craigpotter in https://github.com/saloonphp/barstool/pull/11
+* Fix race condition where response recording can run before request recording under concurrent workers by @lloricode in https://github.com/saloonphp/barstool/pull/10
+* Bump actions/checkout from 6 to 7 by @dependabot[bot] in https://github.com/saloonphp/barstool/pull/9
+
+**Full Changelog**: https://github.com/saloonphp/barstool/compare/v1.1.1...v1.1.2
+
 ## v1.1.1 - 2026-04-27
 
 ### What's Changed
