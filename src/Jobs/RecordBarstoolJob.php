@@ -21,8 +21,9 @@ class RecordBarstoolJob implements ShouldBeUnique, ShouldQueue
 
     public int $uniqueFor = 60;
 
+    
     /**
-     * @param  array<string, mixed>  $data
+     * @param  array<model-property<Barstool>, mixed>  $data
      */
     public function __construct(
         public readonly RecordingType $type,
@@ -37,9 +38,24 @@ class RecordBarstoolJob implements ShouldBeUnique, ShouldQueue
 
     public function handle(): void
     {
-        Barstool::query()->updateOrCreate(
-            ['uuid' => $this->uuid],
-            $this->data,
-        );
+       if ($this->type === RecordingType::REQUEST) {
+            Barstool::query()
+                ->create([
+                    'uuid' => $this->uuid,
+                    ...$this->data,
+                ]);
+            return;
+        }
+
+        $barstool = Barstool::query()
+            ->where('uuid', $this->uuid)
+            ->first();
+
+        if ($barstool === null) {
+            $this->release(2);
+            return;
+        }
+
+        $barstool->update($this->data);
     }
 }
