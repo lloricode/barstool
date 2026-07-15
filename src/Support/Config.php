@@ -19,6 +19,10 @@ class Config
     {
         $actionClass = config("barstool.actions.{$actionName}");
 
+        if ($actionClass === null) {
+            return $actionBaseClass;
+        }
+
         self::ensureValidActionClass($actionName, $actionBaseClass, $actionClass);
 
         return $actionClass;
