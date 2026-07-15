@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use GuzzleHttp\Psr7\Utils;
 use GuzzleHttp\Psr7\NoSeekStream;
+use Saloon\Barstool\Actions\RecordSaloonResponseAction;
 use Saloon\Http\Faking\MockClient;
 use Saloon\Barstool\Models\Barstool;
 use Saloon\Http\Faking\MockResponse;
@@ -738,7 +739,7 @@ it('does not consume non-seekable streamed response bodies', function () {
 
     $response = SaloonResponse::fromPsrResponse($psrResponse, $pendingRequest, $pendingRequest->createPsrRequest());
 
-    BarstoolRecorder::record($response);
+    app(RecordSaloonResponseAction::class)->execute($response);
 
     $barstool = Barstool::where('uuid', $pendingRequest->headers()->get('X-Barstool-UUID'))->sole();
 

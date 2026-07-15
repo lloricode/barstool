@@ -2,6 +2,10 @@
 
 declare(strict_types=1);
 
+use Saloon\Barstool\Actions\RecordSaloonRequestAction;
+use Saloon\Barstool\Actions\RecordSaloonResponseAction;
+use Saloon\Barstool\Actions\RecordSaloonFatalExceptionAction;
+
 return [
 
     /*
@@ -76,5 +80,11 @@ return [
         'enabled' => env('BARSTOOL_QUEUE_ENABLED', false),
         'connection' => env('BARSTOOL_QUEUE_CONNECTION'),
         'queue' => env('BARSTOOL_QUEUE_NAME'),
+    ],
+
+    'actions' => [
+        'record_fatal_exception' => RecordSaloonFatalExceptionAction::class,
+        'record_request' => RecordSaloonRequestAction::class,
+        'record_response' => RecordSaloonResponseAction::class,
     ],
 ];

@@ -10,7 +10,11 @@ use Saloon\Enums\PipeOrder;
 use Saloon\Http\PendingRequest;
 use Spatie\LaravelPackageTools\Package;
 use Saloon\Exceptions\Request\FatalRequestException;
+use Saloon\Barstool\Support\Config as BarstoolConfig;
+use Saloon\Barstool\Actions\RecordSaloonRequestAction;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
+use Saloon\Barstool\Actions\RecordSaloonResponseAction;
+use Saloon\Barstool\Actions\RecordSaloonFatalExceptionAction;
 
 class BarstoolServiceProvider extends PackageServiceProvider
 {
@@ -26,41 +30,29 @@ class BarstoolServiceProvider extends PackageServiceProvider
     public function packageRegistered(): void
     {
         Config::globalMiddleware()
-            ->onFatalException(function (FatalRequestException $exception) {
-                if (Barstool::shouldRecord($exception) === false) {
-                    return;
-                }
+            ->onFatalException(static function (FatalRequestException $exception): void {
 
-                Barstool::record($exception);
+                BarstoolConfig::getAction(
+                    'record_fatal_exception',
+                    RecordSaloonFatalExceptionAction::class
+                )->execute($exception);
 
             }, order: PipeOrder::FIRST)
-            ->onRequest(function (PendingRequest $request) {
-                if (Barstool::shouldRecord($request) === false) {
-                    return;
-                }
+            ->onRequest(static function (PendingRequest $request): void {
 
-                $request->getConnector()->config()->add(
-                    'barstool-request-time',
-                    microtime(true) * 1000
-                );
+                BarstoolConfig::getAction(
+                    'record_request',
+                    RecordSaloonRequestAction::class
+                )->execute($request);
 
-                Barstool::record($request);
             })
-            ->onResponse(function (Response $response) {
-                if (Barstool::shouldRecord($response) === false) {
-                    return;
-                }
+            ->onResponse(static function (Response $response): void {
 
-                $response->getConnector()->config()->add(
-                    'barstool-response-time',
-                    microtime(true) * 1000
-                );
+                BarstoolConfig::getAction(
+                    'record_response',
+                    RecordSaloonResponseAction::class
+                )->execute($response);
 
-                if ($response->successful() && config('barstool.keep_successful_responses') === false) {
-                    return;
-                }
-
-                Barstool::record($response);
             });
     }
 }
