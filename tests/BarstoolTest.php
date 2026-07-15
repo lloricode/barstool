@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 use GuzzleHttp\Psr7\Utils;
 use GuzzleHttp\Psr7\NoSeekStream;
-use Saloon\Barstool\Actions\RecordSaloonResponseAction;
 use Saloon\Http\Faking\MockClient;
 use Saloon\Barstool\Models\Barstool;
 use Saloon\Http\Faking\MockResponse;
@@ -22,8 +21,8 @@ use GuzzleHttp\Psr7\Response as Psr7Response;
 use function Pest\Laravel\assertDatabaseCount;
 use function Pest\Laravel\assertDatabaseEmpty;
 
-use Saloon\Barstool\Barstool as BarstoolRecorder;
 use Saloon\Exceptions\Request\FatalRequestException;
+use Saloon\Barstool\Actions\RecordSaloonResponseAction;
 use Saloon\Barstool\Tests\Fixtures\Requests\PostRequest;
 use Saloon\Barstool\Tests\Fixtures\Requests\GetFileRequest;
 use Saloon\Barstool\Tests\Fixtures\Requests\SoloUserRequest;
