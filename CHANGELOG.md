@@ -2,6 +2,17 @@
 
 All notable changes to `barstool` will be documented in this file.
 
+## v1.2.0 - 2026-07-17
+
+### What's Changed
+
+* Add `Barstool::context()` for storing custom context on recordings by @craigpotter in https://github.com/saloonphp/barstool/pull/13
+* Add PHP 8.5 support by @craigpotter in https://github.com/saloonphp/barstool/pull/14
+* Add `only` allowlist for connectors and requests by @craigpotter in https://github.com/saloonphp/barstool/pull/15
+* Overhaul README configuration docs by @craigpotter in https://github.com/saloonphp/barstool/pull/16
+
+**Full Changelog**: https://github.com/saloonphp/barstool/compare/v1.1.2...v1.2.0
+
 ## v1.1.2 - 2026-07-14
 
 ### What's Changed
